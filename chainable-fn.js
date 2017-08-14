@@ -13,10 +13,10 @@
   };
 
   var setupChainable = function (value) {
-    var ctx = Object.create(Chainable);
-    ctx.currentValue = [value];
-    ctx.returnValue = null;
-    return ctx;
+    var context = Object.create(Chainable);
+    context.currentValue = [value];
+    context.returnValue = null;
+    return context;
   };
 
   root.Chainable = root.Chainable || setupChainable;
