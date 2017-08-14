@@ -1,20 +1,42 @@
-var Chainable = (function () {
-  var currentValue;
+(function (root) {
 
-  var publicAPI = {
-    init: init,
-    next: next,
-    value: value
+  var Chainable = {
+    next: function (func) {
+      var args = [].slice.call(arguments, 1);
+      this.returnValue = func.apply(this, this.currentValue.concat(args));
+      this.currentValue = [this.returnValue];
+      return this;
+    },
+    value: function () {
+      return this.returnValue;
+    }
   };
 
-  return publicAPI;
-  ////////////////
+  var setupChainable = function (value) {
+    var ctx = Object.create(Chainable);
+    ctx.currentValue = [value];
+    ctx.returnValue = null;
+    return ctx;
+  };
 
-  function init() {}
-  function next() {}
-  function value() {}
+  root.Chainable = root.Chainable || setupChainable;
 
-})();
+})(window);
 
+// Example functions
+var add = function (a, b) { return a + b };
+var multiply = function (a, b) { return a * b };
+var subtract = function (a, b) { return a - b };
+var divide = function (a, b) { return a / b };
+var square = function (a) { return a * a };
 
+// Usage
+var value = Chainable(4)
+  .next(add, 5)
+  .next(subtract, 3)
+  .next(multiply, 10)
+  .next(divide, 2)
+  .next(square)
+  .value();
 
+console.log(value); // 900
