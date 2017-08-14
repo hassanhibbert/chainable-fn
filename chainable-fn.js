@@ -15,7 +15,7 @@
   var setupChainable = function (value) {
     var context = Object.create(Chainable);
     context.currentValue = [value];
-    context.returnValue = null;
+    context.returnValue = context.currentValue;
     return context;
   };
 
