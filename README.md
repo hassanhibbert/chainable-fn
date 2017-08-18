@@ -1,6 +1,8 @@
 # chainable-fn
 A small utility to create chainable methods.
 
+*Note:* Functions passed into the `.next()` method should return a value. 
+
 Example
 
 ```javascript
